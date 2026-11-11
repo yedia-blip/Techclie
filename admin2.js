@@ -41,3 +41,4 @@ async function mfaOff(){if(!confirm('Désactiver la double vérification ?'))ret
 async function out(){await sb.auth.signOut();login()}
 addEventListener('error',e=>{hsp();$('#app').innerHTML='<div class="c"><div class="er">Erreur : '+esc(e.message)+'</div></div>'});
 start().catch(e=>{hsp();$('#app').innerHTML='<div class="c"><div class="er">Erreur : '+esc(e&&e.message||e)+'</div></div>'});
+    
