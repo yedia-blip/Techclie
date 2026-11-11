@@ -1,9 +1,12 @@
+var QC={};
 async function met(){
   R(LD,2);
   const [m,q]=await Promise.all([sb.from('metiers').select('id,nom,categorie,actif').order('categorie').order('nom'),sb.from('questions_test').select('metier_id').limit(5000)]);
   if(m.error)return R(`<div class="c"><div class="er">${esc(m.error.message)}</div></div>`,2);
-  MT=m.data;const cn={};(q.data||[]).forEach(x=>cn[x.metier_id]=(cn[x.metier_id]||0)+1);
-  R(`<div class="c"><h2>Métiers</h2><p class="m">Un métier peut être ouvert aux techniciens à partir de 20 questions.</p>${MT.map(x=>`<div class="k row nv" onclick="qs('${x.id}')"><div><b>${esc(x.nom)}</b><div class="m">${esc(x.categorie)} · ${cn[x.id]||0} question(s)</div></div><span class="ch ${x.actif?'ok':(cn[x.id]||0)>=20?'wa':'bad'}">${x.actif?'Ouvert':(cn[x.id]||0)>=20?'Prêt':'Fermé'}</span></div>`).join('')}<div class="k"><b>Ajouter un métier</b><input id="nc" placeholder="Catégorie"><input id="nn" placeholder="Nom du métier"><button class="b" onclick="addm()">Ajouter</button></div></div>`,2)}
+  MT=m.data;QC={};(q.data||[]).forEach(x=>QC[x.metier_id]=(QC[x.metier_id]||0)+1);
+  const d=document.documentElement.dataset.theme=='light';
+  R(`<div class="c"><div class="mth"><h1>Métiers</h1><button class="mtg tgb" onclick="tog()">${ic(d?'moon':'sun')}</button></div><div class="srch">${ic('search')}<input id="ms" placeholder="Rechercher un métier…" oninput="mfl()"></div><div id="ml"></div><div class="k"><b>Ajouter un métier</b><input id="nc" placeholder="Catégorie"><input id="nn" placeholder="Nom du métier"><button class="b" onclick="addm()">Ajouter</button></div></div>`,2,'mt');mfl()}
+function mfl(){const s=($('#ms').value||'').toLowerCase();$('#ml').innerHTML=MT.filter(x=>!s||(x.nom+' '+x.categorie).toLowerCase().includes(s)).map(x=>{const n=QC[x.id]||0;return `<div class="mi" onclick="qs('${x.id}')"><span class="bd">${ic('cap')}</span><div><b>${esc(x.nom)}</b><small>${esc(x.categorie)} · ${n} question(s) · ${x.actif?'Ouvert':n>=20?'Prêt à ouvrir':'Fermé'}</small></div>${ic('chev')}</div>`}).join('')||'<p class="m" style="color:#fff">Aucun métier.</p>'}
 async function addm(){const c=$('#nc').value.trim(),n=$('#nn').value.trim();if(!c||!n)return;const {error}=await sb.from('metiers').insert({categorie:c,nom:n,actif:false});if(error)return alert(error.message);met()}
 async function qs(id,keep){
   const x=MT.find(y=>y.id==id);if(!keep)EQ=null;
