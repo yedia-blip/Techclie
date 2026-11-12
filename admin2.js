@@ -5,7 +5,7 @@ async function met(){
   if(m.error)return R(`<div class="c"><div class="er">${esc(m.error.message)}</div></div>`,2);
   MT=m.data;QC={};(q.data||[]).forEach(x=>QC[x.metier_id]=(QC[x.metier_id]||0)+1);
   const d=document.documentElement.dataset.theme=='light';
-  R(`<div class="c"><div class="mth"><h1>Métiers</h1><button class="mtg tgb" onclick="tog()">${ic(d?'moon':'sun')}</button></div><div class="srch">${ic('search')}<input id="ms" placeholder="Rechercher un métier…" oninput="mfl()"></div><div id="ml"></div><div class="k"><b>Ajouter un métier</b><input id="nc" placeholder="Catégorie"><input id="nn" placeholder="Nom du métier"><button class="b" onclick="addm()">Ajouter</button></div></div>`,2,'mt');mfl()}
+  R(`<div class="c"><div class="mth"><h1>Métiers</h1></div><div class="srch">${ic('search')}<input id="ms" placeholder="Rechercher un métier…" oninput="mfl()"></div><div id="ml"></div><div class="k"><b>Ajouter un métier</b><input id="nc" placeholder="Catégorie"><input id="nn" placeholder="Nom du métier"><button class="b" onclick="addm()">Ajouter</button></div></div>`,2,'mt');mfl()}
 function mfl(){const s=($('#ms').value||'').toLowerCase();$('#ml').innerHTML=MT.filter(x=>!s||(x.nom+' '+x.categorie).toLowerCase().includes(s)).map(x=>{const n=QC[x.id]||0;return `<div class="mi" onclick="qs('${x.id}')"><span class="bd">${ic('cap')}</span><div><b>${esc(x.nom)}</b><small>${esc(x.categorie)} · ${n} question(s) · ${x.actif?'Ouvert':n>=20?'Prêt à ouvrir':'Fermé'}</small></div>${ic('chev')}</div>`}).join('')||'<p class="m" style="color:#fff">Aucun métier.</p>'}
 async function addm(){const c=$('#nc').value.trim(),n=$('#nn').value.trim();if(!c||!n)return;const {error}=await sb.from('metiers').insert({categorie:c,nom:n,actif:false});if(error)return alert(error.message);met()}
 async function qs(id,keep){
@@ -41,4 +41,4 @@ async function mfaOff(){if(!confirm('Désactiver la double vérification ?'))ret
 async function out(){await sb.auth.signOut();login()}
 addEventListener('error',e=>{hsp();$('#app').innerHTML='<div class="c"><div class="er">Erreur : '+esc(e.message)+'</div></div>'});
 start().catch(e=>{hsp();$('#app').innerHTML='<div class="c"><div class="er">Erreur : '+esc(e&&e.message||e)+'</div></div>'});
-    
+  
