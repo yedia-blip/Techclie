@@ -7,9 +7,9 @@ const pwi=(id,p)=>`<div class="pwr"><input id="${id}" type="password" placeholde
 let sb,me,CO,TM=[],VIL=[],MET=[],N={sk:[]},T,P,timer;
 const NAVT=[['home','Accueil','home()'],['brief','Bureau','bur()'],['user','Compte','acc()']],NAVC=[['home','Accueil','home()'],['user','Compte','acc()']];
 const LD='<div class="c" style="display:flex;justify-content:center;padding-top:38vh"><div class="dts"><i></i><i></i><i></i></div></div>';
-const TH={g:()=>{try{return localStorage.getItem('tc_theme')||'auto'}catch(e){return 'auto'}}};
+const TH={g:()=>{try{return localStorage.getItem('tcu_theme')||'auto'}catch(e){return 'auto'}}};
 function ath(){const p=TH.g(),l=matchMedia('(prefers-color-scheme: light)').matches,r=p=='auto'?(l?'light':'dark'):p;document.documentElement.dataset.theme=r;const m=document.querySelector('meta[name=theme-color]');if(m)m.content=r=='light'?'#f0f2f6':'#0f1115'}
-function sth(t){try{localStorage.setItem('tc_theme',t)}catch(e){}ath();if($('#thm'))acc()}
+function sth(t){try{localStorage.setItem('tcu_theme',t)}catch(e){}ath();if($('#thm'))acc()}
 function hsp(){const s=$('#sp');if(!s)return;s.classList.add('out');setTimeout(()=>s.remove(),400)}
 const HD=t=>`<div class="hbar"><div class="hdw"><img src="${LG}" alt=""><div><span class="app">TechClie</span><b class="pt">${t}</b></div></div></div>`;
 function R(h,i,m){clearInterval(timer);let hd='';document.body.className=m||'';if(i!=null&&!m){const t=h.match(/<h2>(.*?)<\/h2>/);if(t){h=h.replace(t[0],'');hd=HD(t[1])}}
@@ -28,7 +28,7 @@ async function start(){
   if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
   ath();matchMedia('(prefers-color-scheme: light)').addEventListener('change',ath);
   if(typeof supabase==='undefined'){R('<div class="c"><div class="er">La bibliothèque Supabase ne s’est pas chargée. Vérifie ta connexion internet puis recharge la page.</div></div>');return hsp()}
-  sb=supabase.createClient(URL_,KEY_);
+  sb=supabase.createClient(URL_,KEY_,{auth:{storageKey:'tc-user-auth'}});
   const [v,m]=await Promise.all([sb.from('villes').select('nom').order('nom'),sb.from('metiers').select('id,nom,categorie,actif').order('categorie').order('nom'),new Promise(r=>setTimeout(r,1900))]);
   VIL=(v.data||[]).map(x=>x.nom);MET=m.data||[];
   const {data}=await sb.auth.getSession();
