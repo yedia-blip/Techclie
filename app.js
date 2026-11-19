@@ -64,9 +64,9 @@ async function sub(role){
   LS.s('tc_pending',P);
   if(data.session)return pv();
   cv()}
-function cv(){R(`<div class="c"><h2>Vérification de l’e-mail</h2><p class="m">Un code a été envoyé à ${esc(P.em)}. Entre-le ci-dessous.</p><input id="cd" inputmode="numeric" maxlength="10" placeholder="Code reçu par e-mail"><button class="b" onclick="ck()">Vérifier</button><button class="b g" onclick="rs()">Renvoyer le code</button></div>`)}
+function cv(){R(`<div class="c"><h2>Vérification de l’e-mail</h2><p class="m">Un code a été envoyé à ${esc(P.em)}. Entre-le ci-dessous.</p><input id="cd" inputmode="numeric" maxlength="10" placeholder="Code reçu par e-mail"><button class="b" onclick="ck()">Vérifier</button><button class="b g" onclick="rsd()">Renvoyer le code</button></div>`)}
 async function ck(){const {error}=await sb.auth.verifyOtp({email:P.em,token:$('#cd').value.trim(),type:'signup'});if(error)return ER(fr(error));pv()}
-async function rs(){const {error}=await sb.auth.resend({type:'signup',email:P.em});error?ER(fr(error)):ER('Nouveau code envoyé.',1)}
+async function rsd(){const {error}=await sb.auth.resend({type:'signup',email:P.em});error?ER(fr(error)):ER('Nouveau code envoyé.',1)}
 async function load(){
   let {data:p}=await sb.from('profiles').select('*').maybeSingle();
   if(!p){const d=LS.g('tc_pending');if(d){P=d;return pv()}}
@@ -90,4 +90,4 @@ async function pv(){
   R(`<div class="c"><h2>Vérification du téléphone</h2><p class="m">Un code a été envoyé par SMS au ${esc(P.tel)}. Entre-le ci-dessous.</p><input id="cd" inputmode="numeric" maxlength="10" placeholder="Code reçu par SMS"><button class="b" onclick="ck2()">Vérifier</button><button class="b g" onclick="pv()">Renvoyer le code</button></div>`)}
 async function ck2(){const {error}=await sb.auth.verifyOtp({phone:P.tel,token:$('#cd').value.trim(),type:'phone_change'});if(error)return ER(fr(error));cr()}
 async function cr(){const e=await mk(P);if(e)return R(`<div class="c"><h2>Création du compte</h2><div class="er">${esc(e)}</div><button class="b" onclick="wel()">Retour</button></div>`);LS.d('tc_pending');load()}
-    
+   
