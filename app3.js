@@ -37,4 +37,4 @@ async function thr(){
 async function refm(){const {data}=await sb.from('messages').select('id,auteur_id,contenu,cree_le').eq('demande_id',TO.did).eq('technicien_id',TO.tid).order('cree_le'),b=$('#bb');if(!b)return;
   b.innerHTML=(data||[]).map(m=>`<div class="bub ${m.auteur_id==me.id?'me':''}">${esc(m.contenu)}<small>${new Date(m.cree_le).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}</small></div>`).join('')||'<p class="m">Écris le premier message.</p>';scrollTo(0,document.body.scrollHeight)}
 async function snd(){const v=$('#mx').value.trim();if(!v)return;const {error}=await sb.from('messages').insert({demande_id:TO.did,technicien_id:TO.tid,auteur_id:me.id,contenu:v});if(error)return alert(error.message);$('#mx').value='';refm()}
-  
+//FIN
