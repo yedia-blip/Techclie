@@ -51,4 +51,4 @@ async function fin(){const {data,error}=await sb.rpc('corriger_test',{p_test:T.i
   if(data.reussi)return msg(`Score : ${data.score}/10. Tu es admis ✓${data.bonus?' 5 connects offerts.':''}`,'home()');
   if(data.seconde_chance)return msg(`Score : ${data.score}/10. Tu as droit à une seconde chance avec d’autres questions.`,'stt()');
   msg(`Score : ${data.score}/10. ${data.raison||'Métier non validé.'}`,'home()')}
-  
+    
