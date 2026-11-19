@@ -26,3 +26,4 @@ async function sed(){const g=i=>$('#'+i).value.trim(),tel=g('tl2').replace(/[\s-
   const {error}=await sb.rpc('modifier_profil',{p_nom:g('en2'),p_sexe:$('#sx2').value,p_naissance:g('dn2'),p_ville:g('vl2'),p_telephone:tel});if(error)return note(error.message);await rme();msg('Informations modifiées ✓','acc()',4)}
 addEventListener('error',e=>{hsp();$('#app').innerHTML='<div class="c"><div class="er">Erreur : '+esc(e.message)+'</div></div>'});
 start().catch(e=>{hsp();$('#app').innerHTML='<div class="c"><div class="er">Erreur : '+esc(e&&e.message||e)+'</div></div>'});
+  
