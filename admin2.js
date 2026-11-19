@@ -45,4 +45,4 @@ async function chA(tid){const m=+$('#m'+tid).value;if(!m)return note('Entre le m
 async function out(){await sb.auth.signOut();login()}
 addEventListener('error',e=>{hsp();$('#app').innerHTML='<div class="c"><div class="er">Erreur : '+esc(e.message)+'</div></div>'});
 start().catch(e=>{hsp();$('#app').innerHTML='<div class="c"><div class="er">Erreur : '+esc(e&&e.message||e)+'</div></div>'});
-                           
+  
