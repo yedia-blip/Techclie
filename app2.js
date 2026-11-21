@@ -10,7 +10,7 @@ async function home(){
   if(!CO)return ent();
   return bur()}
 const stCh=s=>s=='active'?'Active':s=='attente'?'En attente':'Suspendue';
-const RB=[['dash','Tableau de bord','Vue générale','bur()'],['building','Mon entreprise','Identité et infos','mon()'],['users','Employés','Personnel'],['folder','Documents','Archivage'],['filetext','Marchés','Opportunités'],['brief','Offres de services','Candidatures','offt()'],['mega','Publicité','Vidéos'],['wallet','Comptabilité','Entrées et sorties'],['receipt','Devis et factures','Documents'],['cal','Calendrier','Organisation'],['wrench','Matériel','Équipements'],['star','Réputation','Notes et avis','rep()']];
+const RB=[['dash','Tableau de bord','Vue générale','bur()'],['building','Mon entreprise','Identité et infos','mon()'],['users','Employés','Personnel',"mod('emp')"],['folder','Documents','Archivage','doc()'],['filetext','Marchés','Opportunités'],['brief','Offres de services','Candidatures','offt()'],['mega','Publicité','Vidéos'],['wallet','Comptabilité','Entrées et sorties','cpt()'],['receipt','Devis et factures','Documents','fac()'],['cal','Calendrier','Organisation',"mod('evt')"],['wrench','Matériel','Équipements',"mod('mat')"],['star','Réputation','Notes et avis','rep()']];
 async function bur(){
   R(LD,0);
   const [o,rp,cm]=await Promise.all([sb.rpc('offres_technicien'),sb.from('reputation').select('moyenne,nb_avis').eq('technicien_id',me.id).maybeSingle(),sb.from('commissions').select('montant_fc,statut')]);
