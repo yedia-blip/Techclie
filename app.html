@@ -61,16 +61,16 @@ input::placeholder,textarea::placeholder{color:var(--mu);opacity:.8}input:focus,
 .msgr{display:flex;gap:8px;position:sticky;bottom:calc(96px + env(safe-area-inset-bottom,0px));padding:8px 0;background:var(--bg)}.msgr input{margin:0}.msgr .b{width:auto;margin:0;padding:0 18px}
 .fab{position:fixed;right:18px;bottom:calc(100px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;border:0;background:var(--ac);color:var(--acf);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(37,99,235,.4);z-index:9}.k.al{border-color:var(--wa)}
 #nav{overflow:visible}#nav .ci{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#38a0ff);color:var(--acf);display:flex;align-items:center;justify-content:center;margin-top:-30px;box-shadow:0 8px 20px rgba(37,99,235,.45)}
-</style></head><body>
+input[type=checkbox]{width:22px;height:22px;margin:0;padding:0;flex:none}.bub img{max-width:100%;border-radius:12px;display:block}.bub audio{max-width:100%}.b.rec{background:var(--bad);color:#fff;border-color:transparent}.sh span a{color:var(--ac);font-weight:700;font-size:13px}</style></head><body>
 <div id="sp" class="sp"><i class="dg a"></i><i class="dg b"></i><i class="dg c"></i><i class="dg d"></i><img src="icon-512.png" alt=""><div class="stl">TROUVE LE BON TECHNICIEN</div><div class="spn"></div></div>
 <div id="app"></div><nav id="nav"></nav>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
 <script>
 (async()=>{
- const L=[['app.js','start'],['app1.js','login'],['app2.js','home'],['app3.js','ch'],['app4.js','dep']];
+ const L=[['app.js','start'],['app1.js','login'],['app2.js','home'],['app3.js','ch'],['app5.js','mod'],['app4.js','dep']];
  const bad=(f,w)=>{const s=document.getElementById('sp');if(s)s.remove();document.getElementById('app').innerHTML='<div class="c" style="padding-top:60px"><div class="er">Le fichier <b>'+f+'</b> '+w+' sur GitHub. Recopie-le depuis la page de copie, enregistre, puis recharge.</div></div>'};
  for(const [f,k] of L){let t;
-  try{const r=await fetch(f+'?v=3',{cache:'no-store'});if(!r.ok)return bad(f,'est introuvable');t=await r.text()}catch(e){return bad(f,'ne se charge pas')}
+  try{const r=await fetch(f+'?v=4',{cache:'no-store'});if(!r.ok)return bad(f,'est introuvable');t=await r.text()}catch(e){return bad(f,'ne se charge pas')}
   if(!t.trimEnd().endsWith('//FIN'))return bad(f,'est incomplet (coupé au collage)');
   const s=document.createElement('script');s.textContent=t;document.body.appendChild(s);
   if(new Function('return typeof '+k)()!=='function')return bad(f,'contient une erreur')}
